@@ -2,6 +2,7 @@ import Result from '../../helpers/result.helper';
 import User from '../User/user.model';
 import bcrypt from 'bcrypt';
 
+// lấy thông tin của user ra 
 const getMe = async (req, res, next) => {
   try {
     Result.success(res, { currentUser: req.user }, 201);
@@ -9,6 +10,7 @@ const getMe = async (req, res, next) => {
     return next(error);
   }
 };
+// cập nhật lại thông tin của user
 const updateInfo = async (req, res, next) => {
   try {
     const { fullname, email, bio } = req.body;
@@ -29,6 +31,7 @@ const updateInfo = async (req, res, next) => {
     return next(error);
   }
 };
+// đổi mậu khẩu
 const updatePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -44,7 +47,7 @@ const updatePassword = async (req, res, next) => {
     return next(error);
   }
 };
-
+// cập nhật avatar
 const updateAvatar = async (req, res, next) => {
   try {
     const { profilePictureUrl } = req.body;

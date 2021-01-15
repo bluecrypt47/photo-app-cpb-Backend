@@ -1,6 +1,7 @@
 import Result from '../../helpers/result.helper';
 import Photo from '../Photo/photo.model';
 
+// lấy tất cả hình trong DB ra cùng id và profile của hình
 const getAll = async (req, res, next) => {
   try {
     const photos = await Photo.find({})
@@ -14,6 +15,7 @@ const getAll = async (req, res, next) => {
     next(error);
   }
 };
+//
 const getAllOfCurrentUser = async (req, res, next) => {
   try {
     const photos = await Photo.find({ userId: req.user.id })
@@ -27,7 +29,7 @@ const getAllOfCurrentUser = async (req, res, next) => {
     next(error);
   }
 };
-
+// lấy hình theo id
 const getById = async (req, res, next) => {
   try {
     const { photoId } = req.params;
@@ -40,7 +42,7 @@ const getById = async (req, res, next) => {
     return Result.error(res, { message: 'Not Found' }, 404);
   }
 };
-
+// thêm hình
 const createPhoto = async (req, res, next) => {
   try {
     const { photoLabel, photoUrl } = req.body;
@@ -56,6 +58,7 @@ const createPhoto = async (req, res, next) => {
     next(error);
   }
 };
+//cập nhật lại thông tin hình
 const updatePhoto = async (req, res, next) => {
   try {
     const { photoLabel } = req.body;
@@ -70,6 +73,7 @@ const updatePhoto = async (req, res, next) => {
     next(error);
   }
 };
+// xóa hình
 const deletePhoto = async (req, res, next) => {
   try {
     const { photoId } = req.params;

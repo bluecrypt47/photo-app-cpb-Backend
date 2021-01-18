@@ -6,14 +6,14 @@ import User from '../User/user.model';
 const login = async (req, res, next) => {
   try {// kiểm tra account có tồn tại trong DB ko
     const { email, password } = req.body; // lấy Account mà người dùng nhập 
-    const user = await User.findOne({ email }); // tìm kiếm cái account này trong DB
+    const user = await User.findOne({ email }); // tìm kiếm cái account này trong DB thấy là nó bug ra luôn thực chất là lấy token để checkc
     if (!user) { // nếu nhập email ko đúng
       return Result.error(res, { message: 'email does not exist' }, 401);
     }// nó sẽ băm pass ra và so sánh cái pass này trong DB
     const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) {
       return Result.error(res, { message: 'Wrong password' }, 401);
-    }// nếu account đúng thì sẽ cho user vào trang chủ
+    }// tạo ra 1 cái token và lưu vào access_token
     const access_token = createAccessToken(user);
     const currentUser = {
       fullname: user.fullname,
@@ -41,7 +41,7 @@ const register = async (req, res, next) => {
       password: hashedPassword,
       profilePictureUrl: `https://avatars.dicebear.com/4.5/api/initials/${fullname}.svg`,
     });
-    // đưa user đến trang chủ
+    // tạo 1 cái token cho newUser
     const access_token = createAccessToken(newUser);
     const currentUser = {
       fullname: newUser.fullname,

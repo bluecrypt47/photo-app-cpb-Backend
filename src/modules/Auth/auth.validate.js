@@ -12,4 +12,17 @@ function validateFormRegister(req, res, next) {
   }
 }
 
-export default validateFormRegister;
+function validateFromLogin(req, res, next){
+  try{
+    const{ email, password} = req.body;
+    if((email === '' || password === '' || email === '', password ==='')){
+      return Result.error(res, {message: 'Vui lòng nhập đầy đủ tài khoản, mật khẩu và được để trống!'});
+    }
+    next();
+  }catch(error){
+    next(error);
+  }
+}
+
+const Authvalidate={validateFormRegister, validateFromLogin};
+export default Authvalidate;

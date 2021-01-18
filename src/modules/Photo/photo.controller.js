@@ -1,7 +1,7 @@
 import Result from '../../helpers/result.helper';
 import Photo from '../Photo/photo.model';
 
-// lấy tất cả hình trong DB ra cùng id và profile của hình
+// Show tất cả hình trong DB ra cùng id và profile của hình mà ko cần đăng nhập cũng đc
 const getAll = async (req, res, next) => {
   try {
     const photos = await Photo.find({})
@@ -15,9 +15,9 @@ const getAll = async (req, res, next) => {
     next(error);
   }
 };
-//
+// Khi người dùng muốn xem hình của mình 
 const getAllOfCurrentUser = async (req, res, next) => {
-  try {
+  try { // trước khi lấy từ DB ra thì nó sẽ check token của người dùng có trong DB ko
     const photos = await Photo.find({ userId: req.user.id })
       .populate({
         path: 'userId',

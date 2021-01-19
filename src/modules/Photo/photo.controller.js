@@ -15,21 +15,9 @@ const getAll = async (req, res, next) => {
     next(error);
   }
 };
-// Khi người dùng muốn xem hình của mình 
-const getAllOfCurrentUser = async (req, res, next) => {
-  try { // trước khi lấy từ DB ra thì nó sẽ check token của người dùng có trong DB ko
-    const photos = await Photo.find({ userId: req.user.id })
-      .populate({
-        path: 'userId',
-        select: '_id profilePictureUrl fullname',
-      })
-      .sort({ _id: -1 });
-    return Result.success(res, { photos });
-  } catch (error) {
-    next(error);
-  }
-};
-// lấy hình theo id
+
+
+
 const getById = async (req, res, next) => {
   try {
     const { photoId } = req.params;
@@ -86,5 +74,5 @@ const deletePhoto = async (req, res, next) => {
     next(error);
   }
 };
-const photoController = { getAll, getById, createPhoto, getAllOfCurrentUser, updatePhoto, deletePhoto };
+const photoController = { getAll, getById, createPhoto, updatePhoto, deletePhoto };
 export default photoController;

@@ -12,16 +12,18 @@ const getMe = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  try {// kiểm tra account có tồn tại trong DB ko
-    const { email, password } = req.body; // lấy Account mà người dùng nhập 
+  try {
+    // kiểm tra account có tồn tại trong DB ko
+    const { email, password } = req.body; // lấy Account mà người dùng nhập
     const user = await User.findOne({ email }); // tìm kiếm cái account này trong DB thấy là nó bug ra luôn thực chất là lấy token để checkc
-    if (!user) { // nếu nhập email ko đúng
+    if (!user) {
+      // nếu nhập email ko đúng
       return Result.error(res, { message: 'email does not exist' }, 401);
-    }// nó sẽ băm pass ra và so sánh cái pass này trong DB
+    } // nó sẽ băm pass ra và so sánh cái pass này trong DB
     const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) {
       return Result.error(res, { message: 'Wrong password' }, 401);
-    }// tạo ra 1 cái token và lưu vào access_token
+    } // tạo ra 1 cái token và lưu vào access_token
     const access_token = createAccessToken(user);
     const currentUser = {
       fullname: user.fullname,
@@ -35,7 +37,8 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res, next) => {
-  try {// ckech xem có email này tồn tại trong DB chưa
+  try {
+    // ckech xem có email này tồn tại trong DB chưa
     const { fullname, email, password } = req.body;
     const checkEmail = await User.find({ email }).countDocuments();
     if (checkEmail) {

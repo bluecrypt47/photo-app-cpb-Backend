@@ -6,15 +6,15 @@ const UserRouter = Router();
 
 UserRouter.route('/:userId')
   .get(userController.getUser)
-  .put(UserValidate.validateUpdateInfor, checkToken, userController.updateInfo)
+  .put(UserValidate.UpdateValidate, checkToken, userController.updateInfo)
   .delete(checkToken, userController.deleteUser);
 UserRouter.route('/:userId/change-password').put(
-  UserValidate.validateUploadPassword,
+  UserValidate.ChangePasswordValidate,
   checkToken,
   userController.updatePassword
 );
 UserRouter.route('/:userId/change-avatar').put(
-  UserValidate.validateUpdateAvatar,
+  UserValidate.UpdateAvatarValidate,
   checkToken,
   userController.updateAvatar
 );

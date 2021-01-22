@@ -8,7 +8,7 @@ function checkEmail(email) {
   return true;
 }
 
-function UpdateValidate() {
+function UpdateInforValidate() {
   try {
     const { fullname, email, bio } = req.body;
 
@@ -57,5 +57,5 @@ function UpdateAvatarValidate() {
   }
 }
 
-const UserValidate = { UpdateValidate, ChangePasswordValidate, UpdateAvatarValidate };
+const UserValidate = { UpdateInforValidate, ChangePasswordValidate, UpdateAvatarValidate };
 export default UserValidate;

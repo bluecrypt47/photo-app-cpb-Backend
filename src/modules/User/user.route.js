@@ -6,7 +6,7 @@ const UserRouter = Router();
 
 UserRouter.route('/:userId')
   .get(userController.getUser)
-  .put(UserValidate.UpdateValidate, checkToken, userController.updateInfo)
+  .put(UserValidate.UpdateInforValidate, checkToken, userController.updateInfo)
   .delete(checkToken, userController.deleteUser);
 UserRouter.route('/:userId/change-password').put(
   UserValidate.ChangePasswordValidate,

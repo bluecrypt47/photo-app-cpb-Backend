@@ -3,8 +3,7 @@ import User from '../User/user.model';
 import Photo from '../Photo/photo.model';
 import bcrypt from 'bcrypt';
 
-
-// lấy thông tin của user ra 
+// lấy thông tin của user ra
 const getUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
